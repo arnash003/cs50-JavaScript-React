@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <title>Counter</title>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <!-- Lets the browser know to translate this JSX into JavaScript for it to understand-->
+        <script type="text/babel">
+
+            // React hook that allows you to add some additional functionality into your react component 
+            // 0 is the argument to this useState function
+            // What this use State function returns is an array of two things.
+            // It is a variable "count" and a function "setCount". 
+            // The function setCount is going to allow us to set the value of the state
+            // In JavaScript you can have functions that are defined in other functions 
+
+           
+
+            function App () {
+
+                const [count, setCount] = React.useState(0);
+
+                function updateCount () {
+                    setCount(count +1);
+                }
+                return (
+                    <div>
+                        // count is a reference to the state varaible count
+                        <div>{count}</div>
+                        <button onClick ={updateCount}>Count</button>
+                    </div>
+                );
+            }
+
+            ReactDOM.render(<App />, document.querySelector("#app"));
+
+        </script>
+    </body>
+</html>

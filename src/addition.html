@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <style>
+            #app {
+                text-align: center;
+                font-family: sans-serif;
+            }
+            #problem {
+                font-size: 72px;
+            }
+
+            .incorrect {
+                color: red;
+            }
+            #winner {
+                font-size: 72px;
+                color: green;
+            }
+
+        </style>
+        <title>Addition</title>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <!-- Lets the browser know to translate this JSX into JavaScript for it to understand-->
+        <script type="text/babel">
+
+
+        
+            function App () {
+
+                // const [num1, setNum1] = React.useState(1); 
+                // const [num2, setNum2] = React.useState(2); 
+
+                const [state, setState] = React.useState({
+                    num1: 3,
+                    num2: 3,
+                    response: "",
+                    score: 0,
+                    incorrect: false
+                });
+
+                // The code below is the functionality to get the new value of the response
+                // In JavaScript we use the spread operator which uses the exisitng values of the state itself like num1 and num2
+                // but the only thing to override is the new value to the response
+                // It updates the state except for response which is now event.target.value
+                // To make the game interesting, everytime the user gets a new question right, lets update the question 
+
+                function inputKeyPress (event) {
+                    if (event.key === "Enter") {
+                        const answer = parseInt(state.response);
+                        if (state.num1 + state.num2 === answer) {
+                            // User got question right
+                            setState({
+                                ...state,
+                                num1: Math.ceil(Math.random() * 10),
+                                num2: Math.ceil(Math.random() * 10),
+                                score: state.score +1,
+                                response: "",
+                                incorrect: false
+                            })
+                        } else {
+                            // User fot question wrong
+                            setState({
+                                ...state,
+                                score: state.score -1,
+                                response: "",
+                                incorrect: true
+                            })
+                        }
+                    }
+                }
+
+                function updateResponse (event) {
+                    setState ({
+                        ...state, 
+                        response: event.target.value
+                    });
+                }
+
+                if (state.score === 10) {
+                    return (
+                        <div id="winner">You Won!!!</div>
+                    );
+                }
+                
+                return (
+                    <div>
+                       
+                        <div className={state.incorrect ? "incorrect" : ""} id="problem"> {state.num1} + {state.num2} </div>
+                        <input autofocus={true} onKeyPress={inputKeyPress} onChange={updateResponse} value={state.response} />
+                        <div> Score: {state.score} </div>
+                        </div>
+                );
+            }
+            
+            ReactDOM.render(<App />, document.querySelector("#app"));
+
+        </script>
+    </body>
+</html>
+
+<!-- In React, it is useful to combine multiple instances of state into 1 JavaScript object that maintains all the state -->
+<!-- State represents any information that we need to keep track of.  -->
+<!-- We add the response part of the state that initially is an empty string -->
+<!-- In the input field we give it a value called state.response 
+Whatever the user typed into the response, that is stored inside of the state, is going to be the value of what shows up inside the input field -->
+<!-- Whatever is in the input field will have access to what is inside of this state.response variable -->
+<!-- // We do not want to write the number 1+2 but we want the numbers to represent some underlying state in the application
+// We then want to display a user interface based on that state -->
+<!--  //  className={state.incorrect ? "incorrect" : ""} Allows us to change the class of an HTML element based on the current state -->

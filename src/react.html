@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <!-- Lets the browser know to translate this JSX into JavaScript for it to understand-->
+        <script type="text/babel">
+
+            function Hello (props) {
+                return (
+                    // Whatever the name props is. Go ahead and include that inside of the name component.
+                    <h1>Hello, {props.name}!</h1>
+                )
+            }
+
+            function App () {
+                // const x =1;
+                // const y = 2;
+                return (
+                    // <div>{x + y} </div>
+                    <div>
+                   <Hello name ="Harry"/>
+                   <Hello name ="Ron"/>
+                   <Hello name ="Hermione"/>
+                    </div>
+                );
+            }
+
+            ReactDOM.render(<App />, document.querySelector("#app"));
+        </script>
+
+    </body>
+</html>
+
+<!-- Where components get powerful is not when they are displaying the same information every time, but when we can parametise these components
+with properties or props. What does that mean? We know that HTML elements can take attributes. React elements can take properties. 
+  -->
